@@ -1,0 +1,5 @@
+.router {
+  height: calc(100vh - 64px);
+  width: 100vw;
+  background-color: #F5F5F5;
+}

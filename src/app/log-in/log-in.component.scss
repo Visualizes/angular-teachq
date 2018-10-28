@@ -1,0 +1,36 @@
+.login-wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  &__card {
+    padding: 1.5rem 3rem;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  mat-form-field {
+    width: 20rem;
+  }
+}
+
+.login-actions {
+  display: flex;
+  flex-direction: column;
+
+  &__span {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      cursor: pointer;
+    }
+  }
+}

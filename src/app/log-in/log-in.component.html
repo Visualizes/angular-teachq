@@ -1,0 +1,27 @@
+<div class="login-wrapper">
+  <mat-card class="login-wrapper__card">
+    <mat-card-header>
+      <mat-card-title>TeachQ</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginFormGroup" class="login-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter username"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" placeholder="Enter password"/>
+        </mat-form-field>
+        <mat-checkbox color="primary" formControlName="rememberMe">Remember me</mat-checkbox>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="login-actions">
+      <button mat-raised-button color="primary">Log in</button>
+      <div class="login-actions__span">
+        <span routerLink="/register">Register</span>
+        <span>Forgot your password?</span>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
