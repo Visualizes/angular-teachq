@@ -1,0 +1,26 @@
+.question-set-content {
+  width: 50vw;
+}
+
+.add-question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 1rem;
+
+  &__icon {
+    background: #E0E0E0;
+    color: #757575;
+    font-size: 3.5rem;
+    border-radius: .5rem;
+    height: auto;
+    width: auto;
+  }
+
+}
+
+.question-set {
+  overflow-y: auto;
+  max-height: 25rem;
+}

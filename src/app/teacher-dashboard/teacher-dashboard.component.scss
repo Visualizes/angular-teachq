@@ -1,0 +1,13 @@
+.teacher-dashboard-add {
+  right: 1rem;
+  bottom: 1rem;
+  position: fixed;
+}
+
+.teacher-dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  padding: 1rem;
+}

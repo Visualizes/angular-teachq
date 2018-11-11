@@ -1,0 +1,21 @@
+.question-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
+  background-position: bottom;
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+}
+
+.question-item-answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 1rem;
+}
+
+.question-item-answer {
+  &__choice {
+    margin-right: .5rem;
+  }
+}
