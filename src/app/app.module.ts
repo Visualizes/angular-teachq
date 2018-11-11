@@ -6,7 +6,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Routing} from './app.routing';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatRadioModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatRadioModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
 import { CreateQuestionSetComponent } from './create-question-set/create-question-set.component';
 import { QuestionSetItemComponent } from './create-question-set/question-set-item/question-set-item.component';
+import {AppService} from './app.service';
 
 @NgModule({
   declarations: [
@@ -37,11 +38,12 @@ import { QuestionSetItemComponent } from './create-question-set/question-set-ite
     MatIconModule,
     MatInputModule,
     MatRadioModule,
+    MatSnackBarModule,
     MatToolbarModule,
     ReactiveFormsModule,
     Routing
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

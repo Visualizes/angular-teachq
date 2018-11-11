@@ -1,5 +1,13 @@
-<mat-toolbar color="primary">
-  <span>TeachQ</span>
+<mat-toolbar color="primary" class="toolbar">
+  <div class="toolbar-header">
+    <button mat-icon-button *ngIf="showToolbarBack" class="toolbar-header__icon">
+      <mat-icon (click)="back()">arrow_back</mat-icon>
+    </button>
+    <span>TeachQ</span>
+  </div>
+  <button mat-icon-button *ngIf="showToolbarDone">
+    <mat-icon (click)="done()">done</mat-icon>
+  </button>
 </mat-toolbar>
 <div class="router">
   <router-outlet></router-outlet>

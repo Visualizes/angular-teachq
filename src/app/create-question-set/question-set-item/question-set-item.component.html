@@ -1,25 +1,25 @@
 <form class="question-item-wrapper" *ngIf="questionFormGroup != null" [formGroup]="questionFormGroup">
   <mat-form-field appearance="outline">
     <mat-label>Question {{questionNumber}}</mat-label>
-    <input formControlName="question" matInput placeholder="Enter your question here."/>
+    <input formControlName="question" matInput placeholder="Enter your question here." required/>
   </mat-form-field>
 
-  <mat-radio-group class="question-item-answers" formControlName="answer">
+  <mat-radio-group class="question-item-answers" formControlName="answer" required>
     <mat-radio-button value="A" class="question-item-answer">
       <strong class="question-item-answer__choice">A.)</strong>
-      <input formControlName="choiceA" matInput placeholder="Enter your answer here."/>
+      <input [class.input-error]="questionFormGroup.controls['choiceA']?.touched" formControlName="choiceA" matInput placeholder="Enter your answer here." required/>
     </mat-radio-button>
     <mat-radio-button value="B" class="question-item-answer">
       <strong class="question-item-answer__choice">B.)</strong>
-      <input formControlName="choiceB" matInput placeholder="Enter your answer here."/>
+      <input [class.input-error]="questionFormGroup.controls['choiceB']?.touched" formControlName="choiceB" matInput placeholder="Enter your answer here." required/>
     </mat-radio-button>
     <mat-radio-button value="C" class="question-item-answer">
       <strong class="question-item-answer__choice">C.)</strong>
-      <input formControlName="choiceC" matInput placeholder="Enter your answer here."/>
+      <input [class.input-error]="questionFormGroup.controls['choiceC']?.touched" formControlName="choiceC" matInput placeholder="Enter your answer here." required/>
     </mat-radio-button>
     <mat-radio-button value="D" class="question-item-answer">
       <strong class="question-item-answer__choice">D.)</strong>
-      <input formControlName="choiceD" matInput placeholder="Enter your answer here."/>
+      <input [class.input-error]="questionFormGroup.controls['choiceD']?.touched" formControlName="choiceD" matInput placeholder="Enter your answer here." required/>
     </mat-radio-button>
   </mat-radio-group>
 </form>

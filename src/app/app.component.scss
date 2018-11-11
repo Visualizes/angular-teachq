@@ -1,5 +1,18 @@
 .router {
-  height: calc(100vh - 64px);
-  width: 100vw;
   background-color: #F5F5F5;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar-header {
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    margin-right: 1rem;
+  }
 }
