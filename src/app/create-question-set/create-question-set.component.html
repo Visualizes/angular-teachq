@@ -1,11 +1,33 @@
 <div class="question-set-wrapper">
-  <mat-card class="question" *ngFor="let question of questions; let i = index">
-    <app-question-set-item [questionFormGroup]="question" [questionNumber]="i + 1"></app-question-set-item>
-  </mat-card>
 
+  <ng-template *ngIf="loading; then loadingTemplate else questionSet"></ng-template>
+  <ng-template #questionSet>
+    <mat-card class="card">
+      <form class="information-form" [formGroup]="questionsInfo">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input formControlName="title" matInput/>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+      </form>
+    </mat-card>
 
-  <button mat-fab color="primary" class="add-question-button" (click)="addQuestion()">
-    <mat-icon>add</mat-icon>
-  </button>
+    <mat-card class="card" *ngFor="let question of questions; let i = index">
+      <app-question-set-item [questionFormGroup]="question" [questionNumber]="i + 1"></app-question-set-item>
+    </mat-card>
+
+    <button mat-fab color="primary" class="add-question-button" (click)="addQuestion()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-template>
+
+  <ng-template #loadingTemplate>
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
 
 </div>

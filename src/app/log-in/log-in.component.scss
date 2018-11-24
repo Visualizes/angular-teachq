@@ -12,14 +12,10 @@
   display: flex;
   flex-direction: column;
 
-  &__span {
+  &__sub-actions {
     margin-top: .5rem;
     display: flex;
     justify-content: space-between;
-
-    span {
-      cursor: pointer;
-    }
   }
 }
 

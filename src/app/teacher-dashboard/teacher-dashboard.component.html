@@ -1,28 +1,23 @@
 <div class="teacher-dashboard-wrapper">
-  <div class="teacher-dashboard-content">
-    <mat-card>
-      yooo
-    </mat-card>
-    <mat-card>
-      yooo
-    </mat-card>
-    <mat-card>
-      yooo
-    </mat-card>
-    <mat-card>
-      yooo
-    </mat-card>
-    <mat-card>
-      yooo
-    </mat-card>
-    <mat-card>
-      yooo
-    </mat-card>
-    <mat-card>
-      yooo
-    </mat-card>
-  </div>
-  <button mat-fab color="primary" class="teacher-dashboard-add" routerLink="/dashboard/create">
-    <mat-icon>add</mat-icon>
-  </button>
+  <ng-template *ngIf="loading; then loadingTemplate else dashboard"></ng-template>
+  <ng-template #dashboard>
+    <div class="teacher-dashboard-content">
+      <mat-card class="question-set-card" *ngFor="let questionSet of questionSets" [routerLink]="'/dashboard/questions/' + questionSet.id">
+        <mat-card-title>
+          {{questionSet.title}}
+        </mat-card-title>
+        <mat-card-content>
+          {{questionSet.description}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button mat-fab color="primary" class="teacher-dashboard-add" routerLink="/dashboard/questions/create">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-template>
+  <ng-template #loadingTemplate>
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
 </div>

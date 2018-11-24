@@ -11,16 +11,16 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" placeholder="Enter password"/>
+          <input matInput formControlName="password" type="password" placeholder="Enter password"/>
         </mat-form-field>
         <mat-checkbox color="primary" formControlName="rememberMe">Remember me</mat-checkbox>
       </form>
     </mat-card-content>
     <mat-card-actions class="login-actions">
-      <button mat-raised-button color="primary" routerLink="/dashboard">Log in</button>
-      <div class="login-actions__span">
-        <span routerLink="/register">Register</span>
-        <span>Forgot your password?</span>
+      <button mat-raised-button color="primary" (click)="logIn()">Log in</button>
+      <div class="login-actions__sub-actions">
+        <button mat-flat-button routerLink="/register">Register</button>
+        <button mat-flat-button>Forgot your password?</button>
       </div>
     </mat-card-actions>
   </mat-card>

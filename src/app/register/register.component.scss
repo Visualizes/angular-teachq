@@ -1,0 +1,18 @@
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  mat-form-field {
+    width: 20rem;
+  }
+}
+
+.register-wrapper {
+  height: calc(100vh - 64px);
+}
+
+.register-actions {
+  display: flex;
+  justify-content: flex-end;
+}

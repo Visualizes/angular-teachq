@@ -27,7 +27,7 @@ const APP_ROUTES: Routes = [
         component: TeacherDashboardComponent
       },
       {
-        path: 'create',
+        path: 'questions/:id',
         component: CreateQuestionSetComponent
       }
     ]

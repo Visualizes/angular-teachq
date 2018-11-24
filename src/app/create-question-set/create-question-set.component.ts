@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppService} from '../app.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -11,35 +11,74 @@ import {MatSnackBar} from '@angular/material';
 })
 export class CreateQuestionSetComponent implements OnInit, OnDestroy {
 
+  public questionsInfo: FormGroup;
   public questions = [];
+  public loading = true;
+  public questionSetId = null;
+  public subscriptions = [];
 
   constructor(private _fb: FormBuilder,
               private appService: AppService,
               private router: Router,
+              private route: ActivatedRoute,
               private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    this.addQuestion();
+    const id = this.route.snapshot.params.id;
+    if (id !== 'create') {
+      this.questionSetId = id;
+      this.appService.getQuestionSet(id).subscribe(questionSet => {
+        this.questionsInfo = this._fb.group({
+          title: [questionSet.title, Validators.required],
+          description: [questionSet.description, Validators.required]
+        });
+        for (const question of questionSet.questions) {
+          this.addQuestion(question);
+        }
+        this.loading = false;
+      });
+    } else {
+      this.questionsInfo = this._fb.group({
+        title: ['', Validators.required],
+        description: ['', Validators.required]
+      });
+      this.addQuestion();
+      this.loading = false;
+    }
+
     this.appService.toolbarBack.next(true);
     this.appService.toolbarDone.next(true);
 
-    this.appService.toolbarBackTriggered.asObservable().subscribe(() => {
+    this.subscriptions.push(this.appService.toolbarBackTriggered.asObservable().subscribe(() => {
       this.router.navigate(['/dashboard']);
-    });
+    }));
 
-    this.appService.toolbarDoneTriggered.asObservable().subscribe(() => {
-      let invalid = false;
+    this.subscriptions.push(this.appService.toolbarDoneTriggered.asObservable().subscribe(() => {
+      let valid = true;
+      if (this.questionsInfo.invalid) {
+        this.markFormGroupTouched(this.questionsInfo);
+        valid = false;
+      }
+
       for (const question of this.questions) {
         if (question.invalid) {
-          this.snackBar.open('Please fill out all forms', 'Okay', {
-            duration: 2000
-          });
           this.markFormGroupTouched(question);
-          invalid = true;
+          valid = false;
         }
       }
-    });
+
+      if (valid) {
+        this.loading = true;
+        this.appService.saveQuestionSet(this.questionsInfo.value, this.questions.map(a => a.value), this.questionSetId).subscribe(() => {
+          this.router.navigate(['/dashboard']);
+        });
+      } else {
+        this.snackBar.open('Please fill out all forms', 'Okay', {
+          duration: 2000
+        });
+      }
+    }));
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -53,18 +92,21 @@ export class CreateQuestionSetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
     this.appService.toolbarBack.next(false);
     this.appService.toolbarDone.next(false);
   }
 
-  addQuestion() {
+  addQuestion(questionSet?) {
     this.questions.push(this._fb.group({
-      question: ['', Validators.required],
-      answer: ['A', Validators.required],
-      choiceA: ['', Validators.required],
-      choiceB: ['', Validators.required],
-      choiceC: ['', Validators.required],
-      choiceD: ['', Validators.required]
+      question: [questionSet ? questionSet.question : '', Validators.required],
+      answer: [questionSet ? questionSet.answer : 'A', Validators.required],
+      choiceA: [questionSet ? questionSet.choiceA : '', Validators.required],
+      choiceB: [questionSet ? questionSet.choiceB : '', Validators.required],
+      choiceC: [questionSet ? questionSet.choiceC : '', Validators.required],
+      choiceD: [questionSet ? questionSet.choiceD : '', Validators.required]
     }));
   }
 

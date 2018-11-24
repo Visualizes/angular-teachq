@@ -31,8 +31,13 @@
   max-height: 25rem;
 }
 
-.question {
+.card {
   margin: 0 8rem 1rem 8rem;
+}
+
+.information-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .add-question-button {

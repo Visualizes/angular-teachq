@@ -6,7 +6,8 @@ import { LogInComponent } from './log-in/log-in.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Routing} from './app.routing';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatRadioModule, MatSnackBarModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule,
+  MatRadioModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -16,6 +17,10 @@ import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard
 import { CreateQuestionSetComponent } from './create-question-set/create-question-set.component';
 import { QuestionSetItemComponent } from './create-question-set/question-set-item/question-set-item.component';
 import {AppService} from './app.service';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -27,6 +32,9 @@ import {AppService} from './app.service';
     QuestionSetItemComponent
   ],
   imports: [
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -39,6 +47,7 @@ import {AppService} from './app.service';
     MatInputModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     MatToolbarModule,
     ReactiveFormsModule,
     Routing
