@@ -3,6 +3,11 @@
 @import '~normalize.css';
 @import './scss/card';
 
+.main-wrapper {
+  height: calc(100vh - 64px);
+  width: 100%;
+}
+
 .loading {
   display: flex;
   justify-content: center;

@@ -1,0 +1,25 @@
+<div class="main-wrapper card-wrapper">
+  <ng-template *ngIf="loading; then loadingTemplate else presentation"></ng-template>
+  <ng-template #presentation>
+    <mat-card class="question-card">
+      <mat-card-title class="question-title">
+        {{questions[questionIndex].question}}
+      </mat-card-title>
+      <mat-card-content class="question-answers">
+        <span class="question-answer"><strong class="question-answer__letter">A.)</strong>{{questions[questionIndex].choiceA}}</span>
+        <span class="question-answer"><strong class="question-answer__letter">B.)</strong>{{questions[questionIndex].choiceB}}</span>
+        <span class="question-answer"><strong class="question-answer__letter">C.)</strong>{{questions[questionIndex].choiceC}}</span>
+        <span class="question-answer"><strong class="question-answer__letter">D.)</strong>{{questions[questionIndex].choiceD}}</span>
+      </mat-card-content>
+      <mat-card-actions class="question-actions">
+        <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>
+        <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1" (click)="next()">Next</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+  <ng-template #loadingTemplate>
+    <div class="loading">
+      <mat-progress-spinner></mat-progress-spinner>
+    </div>
+  </ng-template>
+</div>

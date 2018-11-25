@@ -31,12 +31,8 @@ def save_question_set():
   if len(request.args) > 0:
     id = request.args[0]
     question_set_id = request.args[1] if len(request.args) > 1 else str(uuid.uuid4()).replace('-', '')
-    result1 = firebase.put('/users/{0}/questionSets'.format(id), question_set_id, request.vars.information)
-    result2 = firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'questions', request.vars.question_set)
-    print('a')
-    print(result1)
-    print('b')
-    print(result2)
+    firebase.put('/users/{0}/questionSets'.format(id), question_set_id, request.vars.information)
+    firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'questions', request.vars.question_set)
     return response.json(dict(id=id))
   else:
     return response.json(dict())
@@ -52,3 +48,8 @@ def get_question_set():
     return response.json(firebase.get('/users/{0}/questionSets'.format(request.args[0]), request.args[1]))
   else:
     return response.json(dict())
+
+def delete_question_set():
+  if (len(request.args) > 1):
+    firebase.delete('/users/{0}/questionSets'.format(request.args[0]), request.args[1])
+  return response.json(dict())

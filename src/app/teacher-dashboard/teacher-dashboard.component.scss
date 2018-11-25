@@ -17,5 +17,10 @@
 }
 
 .question-set-card {
-  cursor: pointer;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }

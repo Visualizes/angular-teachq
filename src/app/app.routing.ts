@@ -3,6 +3,7 @@ import {LogInComponent} from './log-in/log-in.component';
 import {RegisterComponent} from './register/register.component';
 import {TeacherDashboardComponent} from './teacher-dashboard/teacher-dashboard.component';
 import {CreateQuestionSetComponent} from './create-question-set/create-question-set.component';
+import {QuestionsPresentationComponent} from './questions-presentation/questions-presentation.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -29,6 +30,20 @@ const APP_ROUTES: Routes = [
       {
         path: 'questions/:id',
         component: CreateQuestionSetComponent
+      }
+    ]
+  },
+  {
+    path: 'questions',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/questions/present'
+      },
+      {
+        path: 'present/:id',
+        component: QuestionsPresentationComponent
       }
     ]
   }

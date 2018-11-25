@@ -35,4 +35,8 @@ export class AppService {
   getQuestionSet(id) {
     return this.http.get<any>(`${this.apiBase}/get_question_set/${sessionStorage.getItem('uid')}/${id}`);
   }
+
+  deleteQuestionSet(id) {
+    return this.http.get<any>(`${this.apiBase}/delete_question_set/${sessionStorage.getItem('uid')}/${id}`);
+  }
 }

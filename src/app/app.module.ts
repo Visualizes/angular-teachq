@@ -6,7 +6,8 @@ import { LogInComponent } from './log-in/log-in.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Routing} from './app.routing';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule,
+  MatProgressSpinnerModule,
   MatRadioModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
@@ -21,6 +22,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { QuestionsPresentationComponent } from './questions-presentation/questions-presentation.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     RegisterComponent,
     TeacherDashboardComponent,
     CreateQuestionSetComponent,
-    QuestionSetItemComponent
+    QuestionSetItemComponent,
+    QuestionsPresentationComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -45,6 +48,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatRadioModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
