@@ -6,10 +6,18 @@
         {{questions[questionIndex].question}}
       </mat-card-title>
       <mat-card-content class="question-answers">
-        <span class="question-answer"><strong class="question-answer__letter">A.)</strong>{{questions[questionIndex].choiceA}}</span>
-        <span class="question-answer"><strong class="question-answer__letter">B.)</strong>{{questions[questionIndex].choiceB}}</span>
-        <span class="question-answer"><strong class="question-answer__letter">C.)</strong>{{questions[questionIndex].choiceC}}</span>
-        <span class="question-answer"><strong class="question-answer__letter">D.)</strong>{{questions[questionIndex].choiceD}}</span>
+        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'A'">
+          <strong class="question-answer__letter">A.)</strong>{{questions[questionIndex].choiceA}}
+        </span>
+        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'B'">
+          <strong class="question-answer__letter">B.)</strong>{{questions[questionIndex].choiceB}}
+        </span>
+        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'C'">
+          <strong class="question-answer__letter">C.)</strong>{{questions[questionIndex].choiceC}}
+        </span>
+        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'D'">
+          <strong class="question-answer__letter">D.)</strong>{{questions[questionIndex].choiceD}}
+        </span>
       </mat-card-content>
       <mat-card-actions class="question-actions">
         <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>

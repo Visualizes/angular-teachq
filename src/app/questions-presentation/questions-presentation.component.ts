@@ -14,6 +14,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
   public questionIndex = 0;
   public loading = true;
   public subscriptions = [];
+  public showAnswer = false;
 
   constructor(private appService: AppService,
               private route: ActivatedRoute,
@@ -41,10 +42,14 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    this.questionIndex++;
+    this.showAnswer = !this.showAnswer;
+    if (!this.showAnswer) {
+      this.questionIndex++;
+    }
   }
 
   previous() {
+    this.showAnswer = false;
     this.questionIndex--;
   }
 }

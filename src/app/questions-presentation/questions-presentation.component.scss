@@ -14,6 +14,11 @@
   font-size: 4rem;
 }
 
+.question-correct {
+  background: yellow;
+  border-radius: 4rem;
+}
+
 .question-answers {
   display: grid;
   grid-template-columns: 1fr 1fr;
