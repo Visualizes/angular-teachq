@@ -4,6 +4,7 @@ import {RegisterComponent} from './register/register.component';
 import {TeacherDashboardComponent} from './teacher-dashboard/teacher-dashboard.component';
 import {CreateQuestionSetComponent} from './create-question-set/create-question-set.component';
 import {QuestionsPresentationComponent} from './questions-presentation/questions-presentation.component';
+import {ClickerComponent} from './clicker/clicker.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -34,18 +35,22 @@ const APP_ROUTES: Routes = [
     ]
   },
   {
-    path: 'questions',
+    path: 'questions/:id',
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/questions/present'
+        redirectTo: '/questions/:id/present'
       },
       {
-        path: 'present/:id',
+        path: 'present/:presentationID',
         component: QuestionsPresentationComponent
       }
     ]
+  },
+  {
+    path: 'clicker/:userID/:questionSetID/:presentationID',
+    component: ClickerComponent
   }
 ];
 

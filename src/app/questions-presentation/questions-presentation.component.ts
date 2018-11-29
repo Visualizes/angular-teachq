@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../app.service';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Component({
   selector: 'app-questions-presentation',
@@ -15,14 +16,23 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
   public loading = true;
   public subscriptions = [];
   public showAnswer = false;
+  public numberAnswered = 0;
 
   constructor(private appService: AppService,
+              private db: AngularFireDatabase,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.appService.getQuestionSet(this.route.snapshot.params.id).subscribe(questionSet => {
+    const routeParams = this.route.snapshot.params;
+    this.appService.updateCurrentQuestion(
+      routeParams.id,
+      routeParams.presentationID,
+      `q1`).subscribe();
+
+    this.appService.getQuestionSet(routeParams.id).subscribe(questionSet => {
       console.log(questionSet);
       this.questions = questionSet.questions;
       this.loading = false;
@@ -32,6 +42,22 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.appService.toolbarBackTriggered.asObservable().subscribe(() => {
       this.router.navigate(['/dashboard']);
     }));
+
+    const path = `/users/${sessionStorage.getItem('uid')}/questionSets/${routeParams.id}/presentations/${routeParams.presentationID}`;
+    this.db.database.ref(path).on('value', data => {
+      const answers = data.val()[data.val()['currentQuestion']];
+      let numberAnswered = 0;
+      if (answers != null) {
+        for (const choice in answers) {
+          if (answers.hasOwnProperty(choice)) {
+            numberAnswered += answers[choice];
+          }
+        }
+      }
+      this.numberAnswered = numberAnswered;
+      this.cdr.detectChanges();
+      console.log(this.numberAnswered);
+    });
   }
 
   ngOnDestroy() {
@@ -44,12 +70,33 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
   next() {
     this.showAnswer = !this.showAnswer;
     if (!this.showAnswer) {
-      this.questionIndex++;
+      this.loading = true;
+      this.appService.updateCurrentQuestion(
+        this.route.snapshot.params.id,
+        this.route.snapshot.params.presentationID,
+        `q${this.questionIndex + 2}`).subscribe(() => {
+        this.loading = false;
+        this.questionIndex++;
+      });
     }
   }
 
   previous() {
     this.showAnswer = false;
-    this.questionIndex--;
+    this.loading = true;
+    this.appService.updateCurrentQuestion(
+      this.route.snapshot.params.id,
+      this.route.snapshot.params.presentationID,
+      `q${this.questionIndex}`).subscribe(() => {
+      this.loading = false;
+      this.questionIndex--;
+    });
+  }
+
+  refresh() {
+    this.appService.refreshQuestion(
+      this.route.snapshot.params.id,
+      this.route.snapshot.params.presentationID,
+      `q${this.questionIndex + 1}`).subscribe();
   }
 }

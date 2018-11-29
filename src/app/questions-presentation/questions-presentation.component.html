@@ -2,6 +2,10 @@
   <ng-template *ngIf="loading; then loadingTemplate else presentation"></ng-template>
   <ng-template #presentation>
     <mat-card class="question-card">
+      <div class="question-super-header">
+        <div>Number answered: {{numberAnswered}}</div>
+        <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
+      </div>
       <mat-card-title class="question-title">
         {{questions[questionIndex].question}}
       </mat-card-title>
@@ -27,7 +31,7 @@
   </ng-template>
   <ng-template #loadingTemplate>
     <div class="loading">
-      <mat-progress-spinner></mat-progress-spinner>
+      <mat-spinner></mat-spinner>
     </div>
   </ng-template>
 </div>

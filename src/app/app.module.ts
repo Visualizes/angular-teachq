@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { QuestionsPresentationComponent } from './questions-presentation/questions-presentation.component';
+import { ClickerComponent } from './clicker/clicker.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { QuestionsPresentationComponent } from './questions-presentation/questio
     TeacherDashboardComponent,
     CreateQuestionSetComponent,
     QuestionSetItemComponent,
-    QuestionsPresentationComponent
+    QuestionsPresentationComponent,
+    ClickerComponent
   ],
   imports: [
     AngularFireAuthModule,

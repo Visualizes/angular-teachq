@@ -14,7 +14,7 @@
         </mat-card-content>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="'/questions/present/' + questionSet.id">Present</button>
+          <button mat-menu-item (click)="present(questionSet.id)">Present</button>
           <button mat-menu-item [routerLink]="'/dashboard/questions/' + questionSet.id">Edit</button>
           <button mat-menu-item (click)="delete(questionSet.id)">Delete</button>
         </mat-menu>

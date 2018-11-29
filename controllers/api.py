@@ -53,3 +53,29 @@ def delete_question_set():
   if (len(request.args) > 1):
     firebase.delete('/users/{0}/questionSets'.format(request.args[0]), request.args[1])
   return response.json(dict())
+
+def present_question_set():
+  if (len(request.args) > 1):
+    user_id = request.args[0]
+    question_set_id = request.args[1]
+    presentation_id = str(uuid.uuid4()).replace('-', '')
+    firebase.put('/users/{0}/questionSets/{1}/presentations'.format(user_id, question_set_id), presentation_id, dict(currentQuestion='q1'))
+    return response.json(dict(id=presentation_id))
+  else:
+    return response.json(dict())
+
+def update_current_question():
+  if (len(request.args) > 2):
+    user_id = request.args[0]
+    question_set_id = request.args[1]
+    presentation_id = request.args[2]
+    firebase.put('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), 'currentQuestion', request.vars.currentQuestion)
+  return response.json(dict())
+
+def refresh_question():
+  if (len(request.args) > 2):
+    user_id = request.args[0]
+    question_set_id = request.args[1]
+    presentation_id = request.args[2]
+    firebase.delete('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), str(request.vars.currentQuestion))
+  return response.json(dict())

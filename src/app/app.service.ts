@@ -39,4 +39,18 @@ export class AppService {
   deleteQuestionSet(id) {
     return this.http.get<any>(`${this.apiBase}/delete_question_set/${sessionStorage.getItem('uid')}/${id}`);
   }
+
+  presentQuestionSet(id) {
+    return this.http.get<any>(`${this.apiBase}/present_question_set/${sessionStorage.getItem('uid')}/${id}`);
+  }
+
+  updateCurrentQuestion(questionSetID, presentationID, currentQuestion) {
+    const url = `${this.apiBase}/update_current_question/${sessionStorage.getItem('uid')}/${questionSetID}/${presentationID}`;
+    return this.http.post<any>(url, { currentQuestion: currentQuestion });
+  }
+
+  refreshQuestion(questionSetID, presentationID, currentQuestion) {
+    const url = `${this.apiBase}/refresh_question/${sessionStorage.getItem('uid')}/${questionSetID}/${presentationID}`;
+    return this.http.post<any>(url, { currentQuestion: currentQuestion });
+  }
 }

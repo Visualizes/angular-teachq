@@ -33,8 +33,11 @@ export class TeacherDashboardComponent implements OnInit {
     });
   }
 
-  navigateTo(id) {
-    this.router.navigate([`/dashboard/questions/${id}`]);
+  present(id) {
+    this.appService.presentQuestionSet(id).subscribe(data => {
+      console.log(data);
+      this.router.navigate([`/questions/${id}/present/${data.id}`]);
+    });
   }
 
   delete(id) {
