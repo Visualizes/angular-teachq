@@ -1,25 +1,35 @@
 <div class="teacher-dashboard-wrapper">
   <ng-template *ngIf="loading; then loadingTemplate else dashboard"></ng-template>
   <ng-template #dashboard>
-    <div class="teacher-dashboard-content">
-      <mat-card class="question-set-card" *ngFor="let questionSet of questionSets">
-        <mat-card-title class="question-set-card__title">
-          {{questionSet.title}}
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </mat-card-title>
-        <mat-card-content>
-          {{questionSet.description}}
-        </mat-card-content>
+    <ng-template *ngIf="questionSets.length > 0; then content else noContent"></ng-template>
+    <ng-template #content>
+      <div class="teacher-dashboard-content">
+        <mat-card class="question-set-card" *ngFor="let questionSet of questionSets">
+          <mat-card-title class="question-set-card__title">
+            {{questionSet.title}}
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </mat-card-title>
+          <mat-card-content>
+            {{questionSet.description}}
+          </mat-card-content>
 
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="present(questionSet.id)">Present</button>
-          <button mat-menu-item [routerLink]="'/dashboard/questions/' + questionSet.id">Edit</button>
-          <button mat-menu-item (click)="delete(questionSet.id)">Delete</button>
-        </mat-menu>
-      </mat-card>
-    </div>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="present(questionSet.id)">Present</button>
+            <button mat-menu-item [routerLink]="'/dashboard/questions/' + questionSet.id">Edit</button>
+            <button mat-menu-item (click)="delete(questionSet.id)">Delete</button>
+          </mat-menu>
+        </mat-card>
+      </div>
+    </ng-template>
+    <ng-template #noContent>
+      <div class="no-content">
+        <h2>You have no question sets :(</h2>
+        <h3>Click the plus button in the bottom right corner to create one!</h3>
+      </div>
+    </ng-template>
+
     <button mat-fab color="primary" class="teacher-dashboard-add" routerLink="/dashboard/questions/create">
       <mat-icon>add</mat-icon>
     </button>
