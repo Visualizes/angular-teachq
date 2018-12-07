@@ -1,8 +1,9 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../app.service';
 import {AngularFireDatabase} from '@angular/fire/database';
+import {ChartComponent} from 'angular2-chartjs';
 
 @Component({
   selector: 'app-questions-presentation',
@@ -11,12 +12,30 @@ import {AngularFireDatabase} from '@angular/fire/database';
 })
 export class QuestionsPresentationComponent implements OnInit, OnDestroy {
 
+  @ViewChild(ChartComponent) chart: ChartComponent;
+  @ViewChild('questionCard') questionCard: ElementRef;
   public questions = [];
   public questionIndex = 0;
   public loading = true;
   public subscriptions = [];
   public showAnswer = false;
   public numberAnswered = 0;
+
+  type = 'pie';
+
+  data = {
+    labels: ['A', 'B', 'C', 'D'],
+    datasets: [
+      {
+        data: [],
+        backgroundColor: ['rgba(44, 150, 243, .4)', 'rgba(33, 32, 243, .4)', 'rgba(33, 89, 243, .4)', 'rgba(63, 150, 243, .4)'],
+      }
+    ]
+  };
+
+  options = {
+    responsive: true
+  };
 
   constructor(private appService: AppService,
               private db: AngularFireDatabase,
@@ -27,6 +46,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
+    console.log(`localhost:4200/clicker/${sessionStorage.getItem('uid')}/${routeParams.id}/${routeParams.presentationID}`)
     this.appService.updateCurrentQuestion(
       routeParams.id,
       routeParams.presentationID,
@@ -45,14 +65,24 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
 
     const path = `/users/${sessionStorage.getItem('uid')}/questionSets/${routeParams.id}/presentations/${routeParams.presentationID}`;
     this.db.database.ref(path).on('value', data => {
+      if (data.val() == null) {
+        return;
+      }
       const answers = data.val()[data.val()['currentQuestion']];
       let numberAnswered = 0;
+      this.data.datasets[0].data = [];
       if (answers != null) {
-        for (const choice in answers) {
+        for (const choice of this.data.labels) {
           if (answers.hasOwnProperty(choice)) {
+            this.data.datasets[0].data.push(answers[choice]);
             numberAnswered += answers[choice];
+          } else {
+            this.data.datasets[0].data.push(null);
           }
         }
+      }
+      if (this.chart != null) {
+        this.chart.chart.update();
       }
       this.numberAnswered = numberAnswered;
       this.cdr.detectChanges();
@@ -71,14 +101,19 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
     this.showAnswer = !this.showAnswer;
     if (!this.showAnswer) {
       this.loading = true;
-      this.appService.updateCurrentQuestion(
-        this.route.snapshot.params.id,
-        this.route.snapshot.params.presentationID,
-        `q${this.questionIndex + 2}`).subscribe(() => {
-        this.loading = false;
-        this.questionIndex++;
-      });
+    } else {
+      console.log(this.questionCard.nativeElement.offsetHeight)
     }
+    this.appService.updateCurrentQuestion(
+      this.route.snapshot.params.id,
+      this.route.snapshot.params.presentationID,
+      `q${this.questionIndex + (this.showAnswer ? 1 : 2)}`,
+      this.showAnswer ? this.questions[this.questionIndex].answer : null).subscribe(() => {
+        if (!this.showAnswer) {
+          this.loading = false;
+          this.questionIndex++;
+        }
+    });
   }
 
   previous() {
@@ -98,5 +133,15 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
       this.route.snapshot.params.id,
       this.route.snapshot.params.presentationID,
       `q${this.questionIndex + 1}`).subscribe();
+  }
+
+  getHeight() {
+    if (this.questionCard == null) {
+      return 'auto';
+    }
+    if (this.questionCard.nativeElement == null) {
+      return 'auto';
+    }
+    return `${this.questionCard.nativeElement.offsetHeight}px` || 'auto';
   }
 }

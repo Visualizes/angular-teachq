@@ -1,33 +1,42 @@
-<div class="main-wrapper card-wrapper">
+<div class="main-wrapper card-wrapper presentation-wrapper">
   <ng-template *ngIf="loading; then loadingTemplate else presentation"></ng-template>
   <ng-template #presentation>
-    <mat-card class="question-card">
-      <div class="question-super-header">
-        <div>Number answered: {{numberAnswered}}</div>
-        <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
-      </div>
-      <mat-card-title class="question-title">
-        {{questions[questionIndex].question}}
-      </mat-card-title>
-      <mat-card-content class="question-answers">
-        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'A'">
-          <strong class="question-answer__letter">A.)</strong>{{questions[questionIndex].choiceA}}
-        </span>
-        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'B'">
-          <strong class="question-answer__letter">B.)</strong>{{questions[questionIndex].choiceB}}
-        </span>
-        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'C'">
-          <strong class="question-answer__letter">C.)</strong>{{questions[questionIndex].choiceC}}
-        </span>
-        <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'D'">
-          <strong class="question-answer__letter">D.)</strong>{{questions[questionIndex].choiceD}}
-        </span>
-      </mat-card-content>
-      <mat-card-actions class="question-actions">
-        <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>
-        <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1" (click)="next()">Next</button>
-      </mat-card-actions>
-    </mat-card>
+    <div #questionCard class="card-container">
+      <mat-card>
+        <div class="question-super-header">
+          <div>Number answered: {{numberAnswered}}</div>
+          <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
+        </div>
+        <mat-card-title class="question-title">
+          {{questions[questionIndex].question}}
+        </mat-card-title>
+        <mat-card-content class="question-answers">
+          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'A'">
+            <strong class="question-answer__letter">A.)</strong>{{questions[questionIndex].choiceA}}
+          </span>
+          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'B'">
+            <strong class="question-answer__letter">B.)</strong>{{questions[questionIndex].choiceB}}
+          </span>
+          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'C'">
+            <strong class="question-answer__letter">C.)</strong>{{questions[questionIndex].choiceC}}
+          </span>
+          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'D'">
+            <strong class="question-answer__letter">D.)</strong>{{questions[questionIndex].choiceD}}
+          </span>
+        </mat-card-content>
+        <mat-card-actions class="question-actions">
+          <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>
+          <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1" (click)="next()">Next</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div *ngIf="showAnswer" [style.height]="getHeight()" class="card-container graph-container" >
+      <mat-card>
+        <chart [type]="type" [data]="data" [options]="options"></chart>
+      </mat-card>
+    </div>
+
   </ng-template>
   <ng-template #loadingTemplate>
     <div class="loading">

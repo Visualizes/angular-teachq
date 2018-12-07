@@ -44,9 +44,9 @@ export class AppService {
     return this.http.get<any>(`${this.apiBase}/present_question_set/${sessionStorage.getItem('uid')}/${id}`);
   }
 
-  updateCurrentQuestion(questionSetID, presentationID, currentQuestion) {
+  updateCurrentQuestion(questionSetID, presentationID, currentQuestion, answer?) {
     const url = `${this.apiBase}/update_current_question/${sessionStorage.getItem('uid')}/${questionSetID}/${presentationID}`;
-    return this.http.post<any>(url, { currentQuestion: currentQuestion });
+    return this.http.post<any>(url, { currentQuestion: currentQuestion, answer: answer });
   }
 
   refreshQuestion(questionSetID, presentationID, currentQuestion) {

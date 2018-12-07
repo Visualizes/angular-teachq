@@ -2,3 +2,19 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.button-choice {
+  font-size: 8rem;
+
+  &__chosen {
+    background: darkgrey;
+  }
+}
+
+.correct-choice {
+  color: springgreen;
+}
+
+.incorrect-choice {
+  color: red;
+}

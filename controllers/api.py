@@ -70,6 +70,7 @@ def update_current_question():
     question_set_id = request.args[1]
     presentation_id = request.args[2]
     firebase.put('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), 'currentQuestion', request.vars.currentQuestion)
+    firebase.put('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), 'answer', request.vars.answer)
   return response.json(dict())
 
 def refresh_question():
