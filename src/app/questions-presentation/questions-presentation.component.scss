@@ -90,3 +90,9 @@
 .blur {
   filter: blur(15px);
 }
+
+.question-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

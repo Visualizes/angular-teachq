@@ -49,7 +49,7 @@ const APP_ROUTES: Routes = [
     ]
   },
   {
-    path: 'clicker/:userID/:questionSetID/:presentationID',
+    path: 'clicker/:presentationID',
     component: ClickerComponent
   }
 ];

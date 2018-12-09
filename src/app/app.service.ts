@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,9 @@ export class AppService {
   refreshQuestion(questionSetID, presentationID, currentQuestion) {
     const url = `${this.apiBase}/refresh_question/${sessionStorage.getItem('uid')}/${questionSetID}/${presentationID}`;
     return this.http.post<any>(url, { currentQuestion: currentQuestion });
+  }
+
+  getPresentationData(presentationID) {
+    return this.http.get<any>(`${this.apiBase}/get_presentation_data/${presentationID}`);
   }
 }

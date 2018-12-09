@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {ActivatedRoute} from '@angular/router';
 import Reference = firebase.database.Reference;
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-clicker',
@@ -20,21 +21,24 @@ export class ClickerComponent implements OnInit {
 
   constructor(
     private db: AngularFireDatabase,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appService: AppService
   ) { }
 
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
-    const path = `/users/${routeParams.userID}/questionSets/${routeParams.questionSetID}/presentations/${routeParams.presentationID}`;
-    this.database = this.db.database.ref(path);
-    this.database.child('currentQuestion').on('value', currentQuestion => {
-      this.answered = false;
-      this._choice = '';
-      this.currentQuestion = currentQuestion.val();
-    });
-    this.database.child('answer').on('value', answer => {
-      this.showAnswer = answer.val() != null;
-      this.correctAnswer = answer.val();
+    this.appService.getPresentationData(routeParams.presentationID).subscribe(data => {
+      const path = `/users/${data.userID}/questionSets/${data.questionSetID}/presentations/${routeParams.presentationID}`;
+      this.database = this.db.database.ref(path);
+      this.database.child('currentQuestion').on('value', currentQuestion => {
+        this.answered = false;
+        this._choice = '';
+        this.currentQuestion = currentQuestion.val();
+      });
+      this.database.child('answer').on('value', answer => {
+        this.showAnswer = answer.val() != null;
+        this.correctAnswer = answer.val();
+      });
     });
   }
 

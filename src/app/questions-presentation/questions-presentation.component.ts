@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../app.service';
@@ -10,7 +10,7 @@ import {ChartComponent} from 'angular2-chartjs';
   templateUrl: './questions-presentation.component.html',
   styleUrls: ['./questions-presentation.component.scss']
 })
-export class QuestionsPresentationComponent implements OnInit, OnDestroy {
+export class QuestionsPresentationComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(ChartComponent) chart: ChartComponent;
   @ViewChild('questionCard') questionCard: ElementRef;
@@ -20,7 +20,15 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
   public subscriptions = [];
   public showAnswer = false;
   public numberAnswered = 0;
-  public url = ''
+  public url = '';
+  public colors = [
+    '#F44336',
+    '#9C27B0',
+    '#2196F3',
+    '#4CAF50',
+    '#FFEB3B',
+    '#FF9800',
+  ];
 
   type = 'pie';
 
@@ -29,7 +37,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
     datasets: [
       {
         data: [],
-        backgroundColor: ['rgba(44, 150, 243, .4)', 'rgba(33, 32, 243, .4)', 'rgba(33, 89, 243, .4)', 'rgba(63, 150, 243, .4)'],
+        backgroundColor: [],
       }
     ]
   };
@@ -43,6 +51,10 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private router: Router,
               private cdr: ChangeDetectorRef) {
+  }
+
+  ngAfterViewInit() {
+    this.updateGraphColors();
   }
 
   ngOnInit() {
@@ -113,6 +125,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
         if (!this.showAnswer) {
           this.loading = false;
           this.questionIndex++;
+          this.updateGraphColors();
         }
     });
   }
@@ -126,6 +139,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
       `q${this.questionIndex}`).subscribe(() => {
       this.loading = false;
       this.questionIndex--;
+      this.updateGraphColors();
     });
   }
 
@@ -134,5 +148,18 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
       this.route.snapshot.params.id,
       this.route.snapshot.params.presentationID,
       `q${this.questionIndex + 1}`).subscribe();
+  }
+
+  updateGraphColors() {
+    const colors = JSON.parse(JSON.stringify(this.colors));
+    this.data.datasets[0].backgroundColor = [];
+    for (let i = 0; i < 4; i++) {
+      const index = Math.floor(Math.random() * colors.length);
+      this.data.datasets[0].backgroundColor.push(colors[index]);
+      colors.splice(index, 1);
+    }
+    if (this.chart != null) {
+      this.chart.chart.update();
+    }
   }
 }

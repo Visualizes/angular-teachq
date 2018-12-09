@@ -61,8 +61,9 @@ def present_question_set():
   if (len(request.args) > 1):
     user_id = request.args[0]
     question_set_id = request.args[1]
-    presentation_id = str(uuid.uuid4()).replace('-', '')
+    presentation_id = str(uuid.uuid4()).split('-')[0]
     firebase.put('/users/{0}/questionSets/{1}/presentations'.format(user_id, question_set_id), presentation_id, dict(currentQuestion='q1',date=datetime.datetime.now()))
+    firebase.put('/presentations', presentation_id, dict(userID=user_id,questionSetID=question_set_id))
     return response.json(dict(id=presentation_id))
   else:
     return response.json(dict())
@@ -83,3 +84,10 @@ def refresh_question():
     presentation_id = request.args[2]
     firebase.delete('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), str(request.vars.currentQuestion))
   return response.json(dict())
+
+def get_presentation_data():
+  if (len(request.args) > 0):
+    presentation_id = request.args[0]
+    return response.json(firebase.get('/presentations', presentation_id))
+  else:
+    return response.json(dict())
