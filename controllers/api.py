@@ -1,4 +1,5 @@
 import uuid
+import datetime
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
@@ -31,7 +32,8 @@ def save_question_set():
   if len(request.args) > 0:
     id = request.args[0]
     question_set_id = request.args[1] if len(request.args) > 1 else str(uuid.uuid4()).replace('-', '')
-    firebase.put('/users/{0}/questionSets'.format(id), question_set_id, request.vars.information)
+    firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'title', request.vars.information['title'])
+    firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'description', request.vars.information['description'])
     firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'questions', request.vars.question_set)
     return response.json(dict(id=id))
   else:
@@ -59,7 +61,7 @@ def present_question_set():
     user_id = request.args[0]
     question_set_id = request.args[1]
     presentation_id = str(uuid.uuid4()).replace('-', '')
-    firebase.put('/users/{0}/questionSets/{1}/presentations'.format(user_id, question_set_id), presentation_id, dict(currentQuestion='q1'))
+    firebase.put('/users/{0}/questionSets/{1}/presentations'.format(user_id, question_set_id), presentation_id, dict(currentQuestion='q1',date=datetime.datetime.now()))
     return response.json(dict(id=presentation_id))
   else:
     return response.json(dict())
