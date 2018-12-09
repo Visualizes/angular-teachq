@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class LogInComponent implements OnInit {
 
   public loginFormGroup: FormGroup;
+  public error = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -29,8 +30,11 @@ export class LogInComponent implements OnInit {
   logIn() {
     if (this.loginFormGroup.valid) {
       this.auth.auth.signInWithEmailAndPassword(this.loginFormGroup.value.email, this.loginFormGroup.value.password).then(data => {
+        this.error = false;
         sessionStorage.setItem('uid', data.user.uid);
         this.router.navigate(['/dashboard']);
+      }).catch(err => {
+        this.error = true;
       });
     }
   }

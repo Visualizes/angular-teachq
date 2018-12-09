@@ -7,12 +7,13 @@
       <form [formGroup]="loginFormGroup" class="login-form">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Enter username"/>
+          <input matInput formControlName="email" placeholder="Enter email" (keyup.enter)="logIn()"/>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" placeholder="Enter password"/>
+          <input matInput formControlName="password" type="password" placeholder="Enter password" (keyup.enter)="logIn()"/>
         </mat-form-field>
+        <div class="error" *ngIf="error">The email or password you entered is incorrect.</div>
         <mat-checkbox color="primary" formControlName="rememberMe">Remember me</mat-checkbox>
       </form>
     </mat-card-content>
