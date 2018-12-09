@@ -83,6 +83,7 @@ def refresh_question():
     question_set_id = request.args[1]
     presentation_id = request.args[2]
     firebase.delete('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), str(request.vars.currentQuestion))
+    firebase.delete('/users/{0}/questionSets/{1}/presentations/{2}'.format(user_id, question_set_id, presentation_id), 'answer')
   return response.json(dict())
 
 def get_presentation_data():

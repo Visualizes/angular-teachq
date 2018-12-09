@@ -37,6 +37,10 @@ export class ClickerComponent implements OnInit {
       });
       this.database.child('answer').on('value', answer => {
         this.showAnswer = answer.val() != null;
+        if (!this.showAnswer) {
+          this._choice = '';
+          this.answered = false;
+        }
         this.correctAnswer = answer.val();
       });
     });

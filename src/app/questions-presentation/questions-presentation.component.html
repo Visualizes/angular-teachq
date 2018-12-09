@@ -5,7 +5,7 @@
       <div #questionCard class="card-container">
         <mat-card class="question-card">
           <div class="question-super-header">
-            <div>Number answered: {{numberAnswered}}</div>
+            <h2 class="question-number">{{questionIndex + 1}}.)</h2>
             <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
           </div>
           <mat-card-title class="question-title">
@@ -27,7 +27,9 @@
           </mat-card-content>
           <mat-card-actions class="question-actions">
             <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>
-            <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1" (click)="next()">Next</button>
+            <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1 || !showAnswer" (click)="next()">
+              {{showAnswer ? 'Next' : 'Show Answer'}}
+            </button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -38,6 +40,9 @@
             <mat-card-title>
               Answer distribution
             </mat-card-title>
+            <mat-card-subtitle>
+              <div>Number answered: {{numberAnswered}}</div>
+            </mat-card-subtitle>
             <mat-card-content class="graph-card" [class.blur]="!showAnswer">
               <chart [type]="type" [data]="data" [options]="options"></chart>
             </mat-card-content>
@@ -46,8 +51,14 @@
 
         <div class="card-container card-container__qr-code">
           <mat-card>
+            <mat-card-title>
+              Clicker URL
+            </mat-card-title>
+            <mat-card-subtitle>
+              {{url}}
+            </mat-card-subtitle>
             <mat-card-content class="qr-code-card">
-              <qrcode [qrdata]="url"></qrcode>
+              <qrcode [size]="200" [qrdata]="url"></qrcode>
             </mat-card-content>
           </mat-card>
         </div>
