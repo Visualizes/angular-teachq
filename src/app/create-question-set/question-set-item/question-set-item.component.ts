@@ -10,6 +10,7 @@ export class QuestionSetItemComponent implements OnInit {
 
   @Input() questionNumber;
   @Input() questionFormGroup;
+  public questionLength = 350;
 
   constructor() { }
 

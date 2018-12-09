@@ -1,8 +1,11 @@
 <form class="question-item-wrapper" *ngIf="questionFormGroup != null" [formGroup]="questionFormGroup">
   <mat-form-field appearance="outline">
     <mat-label>Question {{questionNumber}}</mat-label>
-    <input formControlName="question" matInput placeholder="Enter your question here." required/>
+    <textarea [maxlength]="questionLength" formControlName="question" matInput placeholder="Enter your question here." required></textarea>
   </mat-form-field>
+  <div class="character-count">
+    {{questionFormGroup.value.question.length}}/{{questionLength}}
+  </div>
 
   <mat-radio-group class="question-item-answers" formControlName="answer" required>
     <mat-radio-button value="A" class="question-item-answer">
