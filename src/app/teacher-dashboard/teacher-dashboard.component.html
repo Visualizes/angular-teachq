@@ -19,6 +19,14 @@
             <button mat-menu-item (click)="present(questionSet.id)">Present</button>
             <button mat-menu-item [routerLink]="'/dashboard/questions/' + questionSet.id">Edit</button>
             <button mat-menu-item (click)="delete(questionSet.id)">Delete</button>
+            <button mat-menu-item *ngIf="questionSet.presentations.length > 0" [matMenuTriggerFor]="history">History</button>
+          </mat-menu>
+
+          <mat-menu #history="matMenu">
+            <button mat-menu-item *ngFor="let presentation of questionSet.presentations"
+                    (click)="presentHistory(questionSet.id, presentation.id)">
+              {{presentation.date | date: 'short'}}
+            </button>
           </mat-menu>
         </mat-card>
       </div>

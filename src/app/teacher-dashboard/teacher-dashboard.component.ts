@@ -26,9 +26,18 @@ export class TeacherDashboardComponent implements OnInit {
       this.questionSets = [];
       for (const id in questionSets) {
         if (questionSets.hasOwnProperty(id)) {
-          this.questionSets.push(Object.assign({ id: id }, questionSets[id]));
+          const questionSet = JSON.parse(JSON.stringify(questionSets[id]));
+          const presentations = [];
+          for (const presentationID in questionSet.presentations) {
+            if (questionSet.presentations.hasOwnProperty(presentationID)) {
+              presentations.push(Object.assign({ id: presentationID }, questionSet.presentations[presentationID]));
+            }
+          }
+          questionSet.presentations = presentations;
+          this.questionSets.push(Object.assign({ id: id }, questionSet));
         }
       }
+      console.log(this.questionSets);
       this.loading = false;
     });
   }
@@ -38,6 +47,10 @@ export class TeacherDashboardComponent implements OnInit {
       console.log(data);
       this.router.navigate([`/questions/${id}/present/${data.id}`]);
     });
+  }
+
+  presentHistory(questionSetID, presentationID) {
+    this.router.navigate([`/questions/${questionSetID}/present/${presentationID}`]);
   }
 
   delete(id) {
