@@ -32,9 +32,10 @@ def save_question_set():
   if len(request.args) > 0:
     id = request.args[0]
     question_set_id = request.args[1] if len(request.args) > 1 else str(uuid.uuid4()).replace('-', '')
-    firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'title', request.vars.information['title'])
-    firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'description', request.vars.information['description'])
-    firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'questions', request.vars.question_set)
+    if (request.vars.information is not None and request.vars.question_set is not None):
+      firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'title', request.vars.information['title'])
+      firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'description', request.vars.information['description'])
+      firebase.put('/users/{0}/questionSets/{1}'.format(id, question_set_id), 'questions', request.vars.question_set)
     return response.json(dict(id=id))
   else:
     return response.json(dict())
