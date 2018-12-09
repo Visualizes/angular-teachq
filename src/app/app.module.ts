@@ -26,6 +26,7 @@ import { QuestionsPresentationComponent } from './questions-presentation/questio
 import { ClickerComponent } from './clicker/clicker.component';
 import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {ChartModule} from 'angular2-chartjs';
+import {QRCodeModule} from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {ChartModule} from 'angular2-chartjs';
     MatProgressSpinnerModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    Routing
+    Routing,
+    QRCodeModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

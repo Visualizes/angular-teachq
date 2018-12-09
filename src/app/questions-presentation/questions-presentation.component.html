@@ -1,42 +1,60 @@
 <div class="main-wrapper card-wrapper presentation-wrapper">
   <ng-template *ngIf="loading; then loadingTemplate else presentation"></ng-template>
   <ng-template #presentation>
-    <div #questionCard class="card-container">
-      <mat-card>
-        <div class="question-super-header">
-          <div>Number answered: {{numberAnswered}}</div>
-          <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
-        </div>
-        <mat-card-title class="question-title">
-          {{questions[questionIndex].question}}
-        </mat-card-title>
-        <mat-card-content class="question-answers">
+    <div class="presentation-content">
+      <div #questionCard class="card-container">
+        <mat-card>
+          <div class="question-super-header">
+            <div>Number answered: {{numberAnswered}}</div>
+            <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
+          </div>
+          <mat-card-title class="question-title">
+            {{questions[questionIndex].question}}
+          </mat-card-title>
+          <mat-card-content class="question-answers">
           <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'A'">
             <strong class="question-answer__letter">A.)</strong>{{questions[questionIndex].choiceA}}
           </span>
-          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'B'">
+            <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'B'">
             <strong class="question-answer__letter">B.)</strong>{{questions[questionIndex].choiceB}}
           </span>
-          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'C'">
+            <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'C'">
             <strong class="question-answer__letter">C.)</strong>{{questions[questionIndex].choiceC}}
           </span>
-          <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'D'">
+            <span class="question-answer" [class.question-correct]="showAnswer && questions[questionIndex].answer === 'D'">
             <strong class="question-answer__letter">D.)</strong>{{questions[questionIndex].choiceD}}
           </span>
-        </mat-card-content>
-        <mat-card-actions class="question-actions">
-          <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>
-          <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1" (click)="next()">Next</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+          </mat-card-content>
+          <mat-card-actions class="question-actions">
+            <button mat-flat-button *ngIf="questionIndex > 0" (click)="previous()">Previous</button>
+            <button mat-raised-button color="primary" *ngIf="questionIndex < questions.length - 1" (click)="next()">Next</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
 
-    <div *ngIf="showAnswer" [style.height]="getHeight()" class="card-container graph-container" >
-      <mat-card>
-        <chart [type]="type" [data]="data" [options]="options"></chart>
-      </mat-card>
-    </div>
+      <div class="graph-container">
+        <div class="card-container card-container__graph">
+          <mat-card>
+            <mat-card-title>
+              Answer distribution
+            </mat-card-title>
+            <mat-card-content class="graph-card" [class.blur]="!showAnswer">
+              <chart [type]="type" [data]="data" [options]="options"></chart>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
+        <div class="card-container card-container__qr-code">
+          <mat-card>
+            <mat-card-content class="qr-code-card">
+              <qrcode [qrdata]="url"></qrcode>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+      </div>
+
+    </div>
   </ng-template>
   <ng-template #loadingTemplate>
     <div class="loading">

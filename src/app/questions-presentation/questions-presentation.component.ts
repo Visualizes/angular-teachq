@@ -20,6 +20,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
   public subscriptions = [];
   public showAnswer = false;
   public numberAnswered = 0;
+  public url = ''
 
   type = 'pie';
 
@@ -46,7 +47,7 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
-    console.log(`localhost:4200/clicker/${sessionStorage.getItem('uid')}/${routeParams.id}/${routeParams.presentationID}`)
+    this.url = `${document.location.protocol}//${window.location.hostname}:4200/clicker/${sessionStorage.getItem('uid')}/${routeParams.id}/${routeParams.presentationID}`;
     this.appService.updateCurrentQuestion(
       routeParams.id,
       routeParams.presentationID,
@@ -133,15 +134,5 @@ export class QuestionsPresentationComponent implements OnInit, OnDestroy {
       this.route.snapshot.params.id,
       this.route.snapshot.params.presentationID,
       `q${this.questionIndex + 1}`).subscribe();
-  }
-
-  getHeight() {
-    if (this.questionCard == null) {
-      return 'auto';
-    }
-    if (this.questionCard.nativeElement == null) {
-      return 'auto';
-    }
-    return `${this.questionCard.nativeElement.offsetHeight}px` || 'auto';
   }
 }
