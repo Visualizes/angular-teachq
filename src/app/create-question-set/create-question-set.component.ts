@@ -51,7 +51,7 @@ export class CreateQuestionSetComponent implements OnInit, OnDestroy {
     this.appService.toolbarDone.next(true);
 
     this.subscriptions.push(this.appService.toolbarBackTriggered.asObservable().subscribe(() => {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/TeachQ/dashboard']);
     }));
 
     this.subscriptions.push(this.appService.toolbarDoneTriggered.asObservable().subscribe(() => {
@@ -71,7 +71,7 @@ export class CreateQuestionSetComponent implements OnInit, OnDestroy {
       if (valid) {
         this.loading = true;
         this.appService.saveQuestionSet(this.questionsInfo.value, this.questions.map(a => a.value), this.questionSetId).subscribe(() => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/TeachQ/dashboard']);
         });
       } else {
         this.snackBar.open('Please fill out all forms', 'Okay', {

@@ -32,7 +32,7 @@ export class LogInComponent implements OnInit {
       this.auth.auth.signInWithEmailAndPassword(this.loginFormGroup.value.email, this.loginFormGroup.value.password).then(data => {
         this.error = false;
         sessionStorage.setItem('uid', data.user.uid);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/TeachQ/dashboard']);
       }).catch(err => {
         this.error = true;
       });

@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
     this.passwordError = false;
     if (this.registerFormGroup.valid) {
       this.appService.registerUser(user).subscribe(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/TeachQ/login']);
       });
     }
   }

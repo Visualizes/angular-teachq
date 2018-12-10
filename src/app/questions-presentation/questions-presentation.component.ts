@@ -59,7 +59,7 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
 
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
-    this.url = `${document.location.protocol}//${window.location.hostname}:4200/clicker/${routeParams.presentationID}`;
+    this.url = `${document.location.protocol}//${window.location.hostname}:4200/TeachQ/clicker/${routeParams.presentationID}`;
     this.appService.updateCurrentQuestion(
       routeParams.id,
       routeParams.presentationID,
@@ -73,7 +73,7 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
     this.appService.toolbarBack.next(true);
 
     this.subscriptions.push(this.appService.toolbarBackTriggered.asObservable().subscribe(() => {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/TeachQ/dashboard']);
     }));
 
     const path = `/users/${sessionStorage.getItem('uid')}/questionSets/${routeParams.id}/presentations/${routeParams.presentationID}`;

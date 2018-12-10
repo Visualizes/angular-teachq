@@ -2,6 +2,7 @@
 
 /secrets
 /errors
+/static/TeachQ
 
 # compiled output
 /dist

@@ -17,7 +17,7 @@
 
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="present(questionSet.id)">Present</button>
-            <button mat-menu-item [routerLink]="'/dashboard/questions/' + questionSet.id">Edit</button>
+            <button mat-menu-item [routerLink]="'/TeachQ/dashboard/questions/' + questionSet.id">Edit</button>
             <button mat-menu-item (click)="delete(questionSet.id)">Delete</button>
             <button mat-menu-item *ngIf="questionSet.presentations.length > 0" [matMenuTriggerFor]="history">History</button>
           </mat-menu>
@@ -38,7 +38,7 @@
       </div>
     </ng-template>
 
-    <button mat-fab color="primary" class="teacher-dashboard-add" routerLink="/dashboard/questions/create">
+    <button mat-fab color="primary" class="teacher-dashboard-add" routerLink="/TeachQ/dashboard/questions/create">
       <mat-icon>add</mat-icon>
     </button>
   </ng-template>

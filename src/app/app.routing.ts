@@ -9,49 +9,60 @@ import {ClickerComponent} from './clicker/clicker.component';
 const APP_ROUTES: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/TeachQ/login',
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    component: LogInComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'dashboard',
+    path: 'TeachQ',
     children: [
       {
         path: '',
-        pathMatch: 'full',
-        component: TeacherDashboardComponent
+        redirectTo: '/TeachQ/login',
+        pathMatch: 'full'
+      },
+      {
+        path: 'login',
+        component: LogInComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'dashboard',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: TeacherDashboardComponent
+          },
+          {
+            path: 'questions/:id',
+            component: CreateQuestionSetComponent
+          }
+        ]
       },
       {
         path: 'questions/:id',
-        component: CreateQuestionSetComponent
-      }
-    ]
-  },
-  {
-    path: 'questions/:id',
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: '/questions/:id/present'
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: '/questions/:id/present'
+          },
+          {
+            path: 'present/:presentationID',
+            component: QuestionsPresentationComponent
+          }
+        ]
       },
       {
-        path: 'present/:presentationID',
-        component: QuestionsPresentationComponent
+        path: 'clicker/:presentationID',
+        component: ClickerComponent
       }
     ]
-  },
-  {
-    path: 'clicker/:presentationID',
-    component: ClickerComponent
   }
+
 ];
 
 export const Routing = RouterModule.forRoot(APP_ROUTES);

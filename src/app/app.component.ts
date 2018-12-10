@@ -1,5 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AppService} from './app.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private router: Router,
+    private readonly location: Location
   ) {}
 
   ngOnInit() {
@@ -34,6 +39,11 @@ export class AppComponent implements OnInit {
 
   done() {
     this.appService.toolbarDoneTriggered.next(true);
+  }
+
+  maskRoute() {
+    const url = this.router.url.substring(1);
+    // this.location.replaceState(url.substring(url.indexOf('/')));
   }
 
 }
