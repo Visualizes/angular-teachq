@@ -24,7 +24,6 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { QuestionsPresentationComponent } from './questions-presentation/questions-presentation.component';
 import { ClickerComponent } from './clicker/clicker.component';
-import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {ChartModule} from 'angular2-chartjs';
 import {QRCodeModule} from 'angularx-qrcode';
 
