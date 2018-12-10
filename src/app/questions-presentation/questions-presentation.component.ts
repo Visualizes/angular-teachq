@@ -59,7 +59,11 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
 
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
-    this.url = `${document.location.protocol}//${window.location.hostname}/TeachQ/clicker?id=${routeParams.presentationID}`;
+    this.url = `${document.location.protocol}//${window.location.hostname}`;
+    if (this.url.includes('localhost')) {
+      this.url += ':4200';
+    }
+    this.url += `/TeachQ/clicker?id=${routeParams.presentationID}`;
     this.appService.updateCurrentQuestion(
       routeParams.id,
       routeParams.presentationID,

@@ -12,9 +12,14 @@ export class AppService {
   public toolbarBackTriggered = new Subject();
   public toolbarDoneTriggered = new Subject();
 
-  private apiBase = `${document.location.protocol}//${window.location.hostname}:8000/TeachQ/api`;
+  private apiBase = `${document.location.protocol}//${window.location.hostname}`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if (this.apiBase.includes('localhost')) {
+      this.apiBase += `:8000`;
+    }
+    this.apiBase += `/TeachQ/api`;
+  }
 
   registerUser(user) {
     console.log(user);

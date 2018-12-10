@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {ActivatedRoute} from '@angular/router';
 import Reference = firebase.database.Reference;
@@ -22,7 +22,8 @@ export class ClickerComponent implements OnInit {
   constructor(
     private db: AngularFireDatabase,
     private route: ActivatedRoute,
-    private appService: AppService
+    private appService: AppService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -34,6 +35,7 @@ export class ClickerComponent implements OnInit {
         this.answered = false;
         this._choice = '';
         this.currentQuestion = currentQuestion.val();
+        this.cdr.detectChanges();
       });
       this.database.child('answer').on('value', answer => {
         this.showAnswer = answer.val() != null;
@@ -42,6 +44,7 @@ export class ClickerComponent implements OnInit {
           this.answered = false;
         }
         this.correctAnswer = answer.val();
+        this.cdr.detectChanges();
       });
     });
   }
