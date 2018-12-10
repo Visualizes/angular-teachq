@@ -6,7 +6,7 @@ from firebase_admin import auth
 from firebase import firebase
 
 if (not len(firebase_admin._apps)):
-  cred = credentials.Certificate('C:/Users/RamiK/Desktop/CMPS183/web2py/applications/TeachQ/private/secrets/secretFirebaseAccountKey.json')
+  cred = credentials.Certificate('C:/Users/RamiK/Desktop/CMPS183/web2py/applications/TeachQ/private/secretFirebaseAccountKey.json')
   default_app = firebase_admin.initialize_app(cred)
 
 firebase = firebase.FirebaseApplication('https://teachq-b8f84.firebaseio.com/', None)
