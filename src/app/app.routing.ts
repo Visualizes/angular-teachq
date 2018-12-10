@@ -8,6 +8,11 @@ import {ClickerComponent} from './clicker/clicker.component';
 
 const APP_ROUTES: Routes = [
   {
+    path: 'TeachQ/default/index',
+    redirectTo: 'TeachQ',
+    pathMatch: 'full'
+  },
+  {
     path: '',
     redirectTo: '/TeachQ/login',
     pathMatch: 'full'
@@ -38,26 +43,22 @@ const APP_ROUTES: Routes = [
           },
           {
             path: 'questions/:id',
-            component: CreateQuestionSetComponent
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: CreateQuestionSetComponent
+              },
+              {
+                path: 'present/:presentationID',
+                component: QuestionsPresentationComponent
+              }
+            ]
           }
         ]
       },
       {
-        path: 'questions/:id',
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: '/questions/:id/present'
-          },
-          {
-            path: 'present/:presentationID',
-            component: QuestionsPresentationComponent
-          }
-        ]
-      },
-      {
-        path: 'clicker/:presentationID',
+        path: 'clicker',
         component: ClickerComponent
       }
     ]

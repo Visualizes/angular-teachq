@@ -26,9 +26,9 @@ export class ClickerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const routeParams = this.route.snapshot.params;
-    this.appService.getPresentationData(routeParams.presentationID).subscribe(data => {
-      const path = `/users/${data.userID}/questionSets/${data.questionSetID}/presentations/${routeParams.presentationID}`;
+    const queryParams = this.route.snapshot.queryParams;
+    this.appService.getPresentationData(queryParams.id).subscribe(data => {
+      const path = `/users/${data.userID}/questionSets/${data.questionSetID}/presentations/${queryParams.id}`;
       this.database = this.db.database.ref(path);
       this.database.child('currentQuestion').on('value', currentQuestion => {
         this.answered = false;

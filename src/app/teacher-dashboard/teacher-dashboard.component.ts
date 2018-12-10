@@ -45,12 +45,12 @@ export class TeacherDashboardComponent implements OnInit {
   present(id) {
     this.appService.presentQuestionSet(id).subscribe(data => {
       console.log(data);
-      this.router.navigate([`/TeachQ/questions/${id}/present/${data.id}`]);
+      this.router.navigate([`/TeachQ/dashboard/questions/${id}/present/${data.id}`]);
     });
   }
 
   presentHistory(questionSetID, presentationID) {
-    this.router.navigate([`/TeachQ/questions/${questionSetID}/present/${presentationID}`]);
+    this.router.navigate([`/TeachQ/dashboard/questions/${questionSetID}/present/${presentationID}`]);
   }
 
   delete(id) {
