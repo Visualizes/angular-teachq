@@ -1,7 +1,7 @@
 <div class="card-wrapper login-wrapper">
   <mat-card class="card-wrapper__card">
-    <mat-card-header>
-      <mat-card-title>TeachQ</mat-card-title>
+    <mat-card-header class="card-wrapper__card__header">
+      <mat-card-title>Welcome back to TeachQ!</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="loginFormGroup" class="login-form">
@@ -18,7 +18,7 @@
       </form>
     </mat-card-content>
     <mat-card-actions class="login-actions">
-      <button mat-raised-button color="primary" (click)="logIn()">Log in</button>
+      <button mat-raised-button color="primary" (click)="logIn()">Log in to your account</button>
       <div class="login-actions__sub-actions">
         <button mat-flat-button routerLink="/TeachQ/register">Register</button>
         <button mat-flat-button>Forgot your password?</button>

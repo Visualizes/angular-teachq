@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
   public showToolbarBack = false;
   public showToolbarDone = false;
+  public isLoggedIn = false;
 
   constructor(
     private appService: AppService,
@@ -44,6 +45,18 @@ export class AppComponent implements OnInit {
   maskRoute() {
     const url = this.router.url.substring(1);
     // this.location.replaceState(url.substring(url.indexOf('/')));
+  }
+
+  showLogOut() {
+    this.isLoggedIn = this.router.url.substr(0, 17) === '/TeachQ/dashboard';
+    if (this.isLoggedIn && sessionStorage.getItem('uid') == null) {
+      this.router.navigate(['/TeachQ']);
+    }
+  }
+
+  logOut() {
+    sessionStorage.clear();
+    this.router.navigate(['/TeachQ']);
   }
 
 }
