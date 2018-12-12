@@ -1,8 +1,10 @@
 <div class="main-wrapper clicker-wrapper">
   <button class="button-choice" mat-flat-button *ngFor="let choice of choices"
+          [class.correct]="showAnswer && correctAnswer === choice && _choice !== ''"
+          [class.incorrect]="showAnswer && (answered && choice === _choice) && correctAnswer !== choice"
           (click)="answer(choice)" [class.button-choice__chosen]="answered && choice === _choice">
     {{choice}}
-    <mat-icon *ngIf="showAnswer && correctAnswer === choice" class="correct-choice">check</mat-icon>
-    <mat-icon *ngIf="showAnswer && (answered && choice === _choice) && correctAnswer !== choice" class="incorrect-choice">close</mat-icon>
+    <!--<mat-icon *ngIf="showAnswer && correctAnswer === choice" class="correct-choice">check</mat-icon>-->
+    <!--<mat-icon *ngIf="showAnswer && (answered && choice === _choice) && correctAnswer !== choice" class="incorrect-choice">close</mat-icon>-->
   </button>
 </div>
