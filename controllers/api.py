@@ -1,12 +1,15 @@
 import uuid
 import datetime
 import firebase_admin
+import os
 from firebase_admin import credentials
 from firebase_admin import auth
 from firebase import firebase
 
 if (not len(firebase_admin._apps)):
-  cred = credentials.Certificate('C:/Users/RamiK/Desktop/CMPS183/web2py/applications/TeachQ/private/secretFirebaseAccountKey.json')
+  basePath = os.path.dirname(os.path.dirname(__file__))
+  path = os.path.join(basePath, 'private', 'secretFirebaseAccountKey.json')
+  cred = credentials.Certificate(str(path))
   default_app = firebase_admin.initialize_app(cred)
 
 firebase = firebase.FirebaseApplication('https://teachq-b8f84.firebaseio.com/', None)
