@@ -21,6 +21,7 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
   public loading = true;
   public subscriptions = [];
   public showAnswer = false;
+  public historyMode = false;
   public numberAnswered = 0;
   public url = '';
   public colors = [
@@ -62,21 +63,25 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
 
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
+    this.historyMode = this.route.snapshot.queryParams.h === '1';
+    if (this.historyMode) {
+      this.showAnswer = true;
+    }
     this.url = `${document.location.protocol}//${window.location.hostname}`;
     if (this.url.includes('localhost')) {
       this.url += ':4200';
     }
     this.url += `/TeachQ/clicker?id=${routeParams.presentationID}`;
-    this.appService.updateCurrentQuestion(
+    this.subscriptions.push(this.appService.updateCurrentQuestion(
       routeParams.id,
       routeParams.presentationID,
-      `q1`).subscribe();
+      `q1`).subscribe());
 
-    this.appService.getQuestionSet(routeParams.id).subscribe(questionSet => {
+    this.subscriptions.push(this.appService.getQuestionSet(routeParams.id).subscribe(questionSet => {
       console.log(questionSet);
       this.questions = questionSet.questions;
       this.loading = false;
-    });
+    }));
     this.appService.toolbarBack.next(true);
 
     this.subscriptions.push(this.appService.toolbarBackTriggered.asObservable().subscribe(() => {
@@ -105,8 +110,9 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
         this.chart.chart.update();
       }
       this.numberAnswered = numberAnswered;
-      this.cdr.detectChanges();
-      console.log(this.numberAnswered);
+      if (!this.cdr['destroyed']) {
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -114,6 +120,7 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
+    this.cdr.detach();
     this.appService.toolbarBack.next(false);
   }
 
@@ -121,8 +128,6 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
     this.showAnswer = !this.showAnswer;
     if (!this.showAnswer) {
       this.loading = true;
-    } else {
-      console.log(this.questionCard.nativeElement.offsetHeight)
     }
     this.appService.updateCurrentQuestion(
       this.route.snapshot.params.id,
@@ -133,12 +138,17 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
           this.loading = false;
           this.questionIndex++;
           this.updateGraphColors();
+          if (this.historyMode) {
+            this.showAnswer = true;
+          }
         }
     });
   }
 
   previous() {
-    this.showAnswer = false;
+    if (!this.historyMode) {
+      this.showAnswer = false;
+    }
     this.loading = true;
     this.appService.updateCurrentQuestion(
       this.route.snapshot.params.id,

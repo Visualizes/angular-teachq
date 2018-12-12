@@ -50,7 +50,7 @@ export class TeacherDashboardComponent implements OnInit {
   }
 
   presentHistory(questionSetID, presentationID) {
-    this.router.navigate([`/TeachQ/dashboard/questions/${questionSetID}/present/${presentationID}`]);
+    this.router.navigate([`/TeachQ/dashboard/questions/${questionSetID}/present/${presentationID}`], { queryParams: { h: 1 }});
   }
 
   delete(id) {

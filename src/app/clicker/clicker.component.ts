@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {ActivatedRoute} from '@angular/router';
 import Reference = firebase.database.Reference;
@@ -9,7 +9,7 @@ import {AppService} from '../app.service';
   templateUrl: './clicker.component.html',
   styleUrls: ['./clicker.component.scss']
 })
-export class ClickerComponent implements OnInit {
+export class ClickerComponent implements OnInit, OnDestroy {
 
   public choices = ['A', 'B', 'C', 'D'];
   private database: Reference;
@@ -44,9 +44,15 @@ export class ClickerComponent implements OnInit {
           this.answered = false;
         }
         this.correctAnswer = answer.val();
-        this.cdr.detectChanges();
+        if (!this.cdr['destroyed']) {
+          this.cdr.detectChanges();
+        }
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.cdr.detach();
   }
 
   answer(choice) {

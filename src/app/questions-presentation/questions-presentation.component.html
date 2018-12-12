@@ -6,7 +6,7 @@
         <mat-card class="question-card">
           <div class="question-super-header">
             <h2 class="question-number">{{questionIndex + 1}}.)</h2>
-            <button mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
+            <button *ngIf="!historyMode" mat-icon-button (click)="refresh()"><mat-icon>refresh</mat-icon></button>
           </div>
           <mat-card-title class="question-title">
             {{questions[questionIndex].question}}
