@@ -6,7 +6,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Routing} from './app.routing';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule,
   MatProgressSpinnerModule,
   MatRadioModule, MatSnackBarModule,
   MatToolbarModule
@@ -27,6 +27,7 @@ import { ClickerComponent } from './clicker/clicker.component';
 import {ChartModule} from 'angular2-chartjs';
 import {QRCodeModule} from 'angularx-qrcode';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { QrCodeDialogComponent } from './qr-code-dialog/qr-code-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     QuestionSetItemComponent,
     QuestionsPresentationComponent,
     ClickerComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    QrCodeDialogComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -52,6 +54,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -65,6 +68,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     QRCodeModule
   ],
   providers: [AppService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [QrCodeDialogComponent]
 })
 export class AppModule { }

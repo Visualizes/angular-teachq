@@ -1,0 +1,7 @@
+<h1 mat-dialog-title><strong>{{data.url}}</strong></h1>
+<div mat-dialog-content class="dialog-content">
+  <qrcode [size]="400" [qrdata]="data.url"></qrcode>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="dialogRef.close()">Close</button>
+</div>

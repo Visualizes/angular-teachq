@@ -51,8 +51,11 @@
 
         <div class="card-container card-container__qr-code">
           <mat-card>
-            <mat-card-title>
+            <mat-card-title class="card-container__qr-code__title">
               Clicker URL
+              <button mat-icon-button (click)="magnify()">
+                <mat-icon>search</mat-icon>
+              </button>
             </mat-card-title>
             <mat-card-subtitle>
               {{url}}

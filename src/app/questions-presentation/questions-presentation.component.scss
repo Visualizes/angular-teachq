@@ -31,6 +31,12 @@
   &__qr-code {
     padding-left: 0;
     padding-top: 1rem;
+
+    &__title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
 

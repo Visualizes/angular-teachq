@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../app.service';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {ChartComponent} from 'angular2-chartjs';
+import {MatDialog} from '@angular/material';
+import {QrCodeDialogComponent} from '../qr-code-dialog/qr-code-dialog.component';
 
 @Component({
   selector: 'app-questions-presentation',
@@ -50,7 +52,8 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
               private db: AngularFireDatabase,
               private route: ActivatedRoute,
               private router: Router,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              private dialog: MatDialog) {
   }
 
   ngAfterViewInit() {
@@ -167,5 +170,11 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
     if (this.chart != null) {
       this.chart.chart.update();
     }
+  }
+
+  magnify() {
+    this.dialog.open(QrCodeDialogComponent, {
+      data: {url: this.url}
+    });
   }
 }
