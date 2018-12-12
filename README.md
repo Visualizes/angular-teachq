@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
 
+## Install
+
+In order to install the required dependencies, run `npm install`.
+
 ## Secrets
 
 Contact any developer on the project for the required secrets.
