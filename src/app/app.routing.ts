@@ -5,6 +5,7 @@ import {TeacherDashboardComponent} from './teacher-dashboard/teacher-dashboard.c
 import {CreateQuestionSetComponent} from './create-question-set/create-question-set.component';
 import {QuestionsPresentationComponent} from './questions-presentation/questions-presentation.component';
 import {ClickerComponent} from './clicker/clicker.component';
+import {LandingPageComponent} from './landing-page/landing-page.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -22,7 +23,7 @@ const APP_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/TeachQ/login',
+        component: LandingPageComponent,
         pathMatch: 'full'
       },
       {

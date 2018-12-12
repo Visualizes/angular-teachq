@@ -1,0 +1,74 @@
+.banner {
+  width: 100%;
+  height: 60%;
+  background: #673ab7;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  &__title {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: normal;
+    font-size: 2.5rem;
+    margin: 0 0 .5rem 0;
+  }
+
+  &__subtitle {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: normal;
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+  }
+
+  &__actions {
+    display: flex;
+    margin-bottom: 1rem;
+
+    &__button {
+      margin: 0 .5rem;
+      width: 6rem;
+
+      &--login {
+        border: 1px white solid;
+      }
+
+    }
+  }
+
+  &__preview {
+    width: 38%;
+  }
+}
+
+.features {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 14%;
+  margin: 0 2rem;
+
+  mat-icon {
+    font-size: 2.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    color: #673ab7;
+  }
+}

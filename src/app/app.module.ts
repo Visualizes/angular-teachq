@@ -26,6 +26,7 @@ import { QuestionsPresentationComponent } from './questions-presentation/questio
 import { ClickerComponent } from './clicker/clicker.component';
 import {ChartModule} from 'angular2-chartjs';
 import {QRCodeModule} from 'angularx-qrcode';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {QRCodeModule} from 'angularx-qrcode';
     CreateQuestionSetComponent,
     QuestionSetItemComponent,
     QuestionsPresentationComponent,
-    ClickerComponent
+    ClickerComponent,
+    LandingPageComponent
   ],
   imports: [
     AngularFireAuthModule,
