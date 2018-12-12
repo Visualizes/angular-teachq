@@ -3,6 +3,8 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {ActivatedRoute} from '@angular/router';
 import Reference = firebase.database.Reference;
 import {AppService} from '../app.service';
+import {MatDialog} from '@angular/material';
+import {ConfirmationDialogComponent} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-clicker',
@@ -23,7 +25,8 @@ export class ClickerComponent implements OnInit, OnDestroy {
     private db: AngularFireDatabase,
     private route: ActivatedRoute,
     private appService: AppService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -57,10 +60,16 @@ export class ClickerComponent implements OnInit, OnDestroy {
 
   answer(choice) {
     if (!this.answered) {
-      this.database.child(this.currentQuestion).child(choice).transaction(count => count ? ++count : 1);
-      this._choice = choice;
+      this.dialog.open(ConfirmationDialogComponent, {
+        data: {choice: choice}
+      }).afterClosed().subscribe(confirmed => {
+        if (confirmed) {
+          this.database.child(this.currentQuestion).child(choice).transaction(count => count ? ++count : 1);
+          this._choice = choice;
+          this.answered = true;
+        }
+      });
     }
-    this.answered = true;
   }
 
 }

@@ -28,6 +28,7 @@ import {ChartModule} from 'angular2-chartjs';
 import {QRCodeModule} from 'angularx-qrcode';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { QrCodeDialogComponent } from './qr-code-dialog/qr-code-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { QrCodeDialogComponent } from './qr-code-dialog/qr-code-dialog.component
     QuestionsPresentationComponent,
     ClickerComponent,
     LandingPageComponent,
-    QrCodeDialogComponent
+    QrCodeDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     AngularFireAuthModule,
@@ -69,6 +71,6 @@ import { QrCodeDialogComponent } from './qr-code-dialog/qr-code-dialog.component
   ],
   providers: [AppService],
   bootstrap: [AppComponent],
-  entryComponents: [QrCodeDialogComponent]
+  entryComponents: [ConfirmationDialogComponent, QrCodeDialogComponent]
 })
 export class AppModule { }

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title><strong>Are you sure?</strong></h1>
+<div mat-dialog-content>
+  You selected {{data.choice}}. Is this your final answer?
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="dialogRef.close(false)">No</button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(true)">Yes</button>
+</div>
