@@ -15,10 +15,12 @@ export class AppService {
   private apiBase = `${document.location.protocol}//${window.location.hostname}`;
 
   constructor(private http: HttpClient) {
-    if (this.apiBase.includes('localhost')) {
-      this.apiBase += `:8000`;
+    let port = window.document.location.port;
+    if (port === '4200') {
+      port = `8000`;
     }
-    this.apiBase += `/TeachQ/api`;
+
+    this.apiBase += `:${port}/TeachQ/api`;
   }
 
   registerUser(user) {

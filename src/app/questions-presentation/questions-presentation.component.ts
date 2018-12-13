@@ -67,11 +67,7 @@ export class QuestionsPresentationComponent implements OnInit, AfterViewInit, On
     if (this.historyMode) {
       this.showAnswer = true;
     }
-    this.url = `${document.location.protocol}//${window.location.hostname}`;
-    if (this.url.includes('localhost')) {
-      this.url += ':4200';
-    }
-    this.url += `/TeachQ/clicker?id=${routeParams.presentationID}`;
+    this.url = `${document.location.protocol}//${window.location.hostname}:${window.document.location.port}/TeachQ/clicker?id=${routeParams.presentationID}`;
     this.subscriptions.push(this.appService.updateCurrentQuestion(
       routeParams.id,
       routeParams.presentationID,
